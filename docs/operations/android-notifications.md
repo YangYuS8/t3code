@@ -38,7 +38,7 @@ vp run android:dev
 
 For an EAS build, provide the same configuration through each selected build environment, using an EAS file variable named `T3CODE_ANDROID_GOOGLE_SERVICES_FILE` for the Google services file. Make the file available to fingerprint generation as well as the native build. FCM service-account credentials belong on the relay, not in EAS's app environment. If deploying a separate hosted relay, configure the build's T3 Connect public settings for that relay and Clerk application as described in [T3 Connect](../internals/t3-connect.md).
 
-Set `T3CODE_MOBILE_UPDATES_ENABLED=0` before prebuild and bundling a private binary to disable the repository's configured Expo OTA update source. A debug development-client APK requires Metro; a bundled release build is needed to verify cold-start notification taps without Expo's development launcher.
+This fork uses the JavaScript shipped in the mobile binary. A debug development-client APK requires Metro; a bundled release build is needed to verify cold-start notification taps without Expo's development launcher.
 
 ## Clerk sign-in for private builds
 
@@ -96,13 +96,13 @@ The Android native handler must already be configured with that device and accou
 
 ### Hosted delivery
 
-The existing Alchemy deployment provisions Cloudflare Workers, delivery queues, Hyperdrive, tunnel/DNS resources, PlanetScale Postgres, and Axiom observability by default. It requires credentials for the enabled services and private Clerk configuration; the repository's public app settings do not grant deployment access. Set `APNS_ENABLED=false` in an Android-only development relay to skip Apple delivery and its credential requirements. APNs remains enabled by default.
+The existing Alchemy deployment provisions Cloudflare Workers, delivery queues, Hyperdrive, tunnel/DNS resources and PlanetScale Postgres by default. It requires credentials for the enabled services and private Clerk configuration; the repository's public app settings do not grant deployment access. Set `APNS_ENABLED=false` in an Android-only development relay to skip Apple delivery and its credential requirements. APNs remains enabled by default.
 
 #### Personal stage in the existing deployment accounts
 
 A maintainer with access to the existing Alchemy state and deployment credentials can deploy the Android changes to a personal stage. Non-production stages reference the retained database and DNS zones owned by the `prod` stage, create a separate PlanetScale branch, and apply migrations to that branch. A personal stage is therefore not a standalone deployment into an unrelated account.
 
-1. Apply the Android changes to a checkout with the existing deployment credentials. Create a private `infra/relay/.env.android-dev` using the existing Cloudflare, PlanetScale, Axiom, domain, and Clerk configuration described in the [relay README](../../infra/relay/README.md#deployment-ci). Keep `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, and `CLERK_JWT_AUDIENCE` on the same Clerk instance used by the test clients.
+1. Apply the Android changes to a checkout with the existing deployment credentials. Create a private `infra/relay/.env.android-dev` using the existing Cloudflare, PlanetScale, domain, and Clerk configuration described in the [relay README](../../infra/relay/README.md#deployment-ci). Keep `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, and `CLERK_JWT_AUDIENCE` on the same Clerk instance used by the test clients.
 2. Add the Firebase service-account JSON as `FCM_SERVICE_ACCOUNT` and set `APNS_ENABLED=false` for this Android-only stage. Leave `RELAY_DOMAIN` unset so the deployment derives a hostname for the personal stage instead of using the production hostname.
 3. From the repository root, inspect the deployment plan, then deploy the same stage:
 

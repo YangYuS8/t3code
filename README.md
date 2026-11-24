@@ -9,12 +9,7 @@
 <p align="center">The open-source control plane for coding agents.</p>
 
 <p align="center">
-  <a href="https://t3.codes/download"><strong>Download</strong></a> ·
-  <a href="https://apps.apple.com/us/app/t3-code-remote-claude-more/id6787819824">iOS</a> ·
-  <a href="https://play.google.com/store/apps/details?id=com.t3tools.t3code">Android</a> ·
-  <a href="https://app.t3.codes">Web</a> ·
-  <a href="./docs/README.md">Docs</a> ·
-  <a href="https://discord.gg/jn4EGJjrvv">Discord</a>
+  <a href="./docs/user/telemetry.md">Privacy in this fork</a> · <a href="./docs/README.md">Docs</a>
 </p>
 
 <p align="center">
@@ -37,39 +32,22 @@ It works with Claude Code, Codex, Cursor, OpenCode, Grok Build, Antigravity, Kir
 - **Fast.** Performance is a feature here. We measure it, and we treat a dropped frame as a bug.
 - **Open.** MIT licensed. If you don't like something, fork it.
 
-## Install
+## Run this privacy build
 
-### Desktop app
+This fork identifies itself as `0.1.11-privacy.1` and is based on the official `v0.1.11` tag. The built-in language picker includes **中文（简体）** under **Settings → General → Language**. The privacy changes apply to the software built from this branch. Downloads from t3.codes and the app stores use upstream code.
 
-[Download T3 Code](https://t3.codes/download) for macOS, Windows, or Linux. You can also use a package manager:
+With [Vite+](https://viteplus.dev/) installed, run the web UI and local server from source:
 
-| Platform       | Command                                                              |
-| -------------- | -------------------------------------------------------------------- |
-| macOS          | `brew install --cask t3-code`                                        |
-| Windows        | `winget install T3Tools.T3Code` or `scoop install extras/t3code`     |
-| Arch Linux     | `yay -S t3code-bin`                                                  |
-| Nix            | `nix profile add github:NixOS/nixpkgs/nixos-unstable#t3code`         |
-| Debian, Ubuntu | `.deb` from [Releases](https://github.com/pingdotgg/t3code/releases) |
-
-### Command line
-
-This installs the `t3` command. Run `t3` to start the server and open the web app.
-
-```bash
-curl -fsSL https://t3.codes/install.sh | sh
+```sh
+git clone --branch privacy-v0.1.11 https://github.com/YangYuS8/t3code.git
+cd t3code
+vp install --frozen-lockfile
+vp run dev --home-dir "$PWD/.t3"
 ```
 
-On Windows, in PowerShell:
+The CLI updater and SSH installer look for binaries in this fork’s releases. A remote host can run this branch from source until a matching binary is published.
 
-```powershell
-irm https://t3.codes/install.ps1 | iex
-```
-
-To try it once without an install, run `npx t3@latest`.
-
-### Phone
-
-Get the app from the [App Store](https://apps.apple.com/us/app/t3-code-remote-claude-more/id6787819824) or [Google Play](https://play.google.com/store/apps/details?id=com.t3tools.t3code). Then follow [remote access](./docs/user/remote-access.md) to connect it to your computer.
+[Privacy and external connections](./docs/user/telemetry.md)
 
 ### Sign in to an agent
 
