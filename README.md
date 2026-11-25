@@ -36,6 +36,8 @@ It works with Claude Code, Codex, Cursor, OpenCode, Grok Build, Antigravity, Kir
 
 This fork identifies itself as `0.1.11-privacy.1` and is based on the official `v0.1.11` tag. The built-in language picker includes **中文（简体）** under **Settings → General → Language**. The privacy changes apply to the software built from this branch. Downloads from t3.codes and the app stores use upstream code.
 
+**Mac (Apple Silicon).** Download the [DMG](https://github.com/YangYuS8/t3code/releases/download/v0.1.11-privacy.1/T3-Code-0.1.11-arm64.dmg). Quit the installed app, open the DMG, and drag **T3 Code (Beta)** into **Applications**. The app reports version `0.1.11` and uses the official settings and session paths. This fork build is ad-hoc signed and has no Apple notarization.
+
 With [Vite+](https://viteplus.dev/) installed, run the web UI and local server from source:
 
 ```sh
